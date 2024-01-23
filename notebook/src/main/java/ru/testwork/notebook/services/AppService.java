@@ -2,6 +2,8 @@ package ru.testwork.notebook.services;
 
 import ru.testwork.notebook.dto.ContactFullDto;
 import ru.testwork.notebook.dto.ContactUpsertDto;
+import ru.testwork.notebook.exceptions.NotFoundException;
+import ru.testwork.notebook.exceptions.ValidationException;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ public interface AppService {
      * @param dto объект {@link ContactUpsertDto}, содержащий данные для обновления контакта
      * @param id идентификатор контакта для обновления
      * @return объект {@link ContactFullDto}, представляющий обновленный контакт
+     * @throws NotFoundException выбрасывается, если контакт не найден по заданному идентификатору
      */
     ContactFullDto updateContact(ContactUpsertDto dto, Long id);
 
@@ -54,6 +57,7 @@ public interface AppService {
      * Удаление контакта по заданному идентификатору.
      *
      * @param id идентификатор контакта для удаления
+     * @throws NotFoundException выбрасывается, если контакт не найден по заданному идентификатору
      */
     void deleteContact(Long id);
 
@@ -61,6 +65,7 @@ public interface AppService {
      * Поиск контакта по заданному идентификатору.
      *
      * @param id идентификатор искомого контакта
+     * @throws NotFoundException выбрасывается, если контакт не найден по заданному идентификатору
      */
     ContactFullDto getContact(Long id);
 }
