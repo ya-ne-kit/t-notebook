@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "c5e4e3e7-8b0a-4e3f-9e0d-7e8f9a0b1c2d",
+    "name": "Contact Controller Tests",
+    "description": "Collection of tests for the Contact Controller",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+  {
+   "name": "Get All Contacts",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "exec": [
+       "pm.test(\"Response contains 10 objects\", function () {",
+       "    pm.expect(pm.response.json().length).to.eql(10);",
+       "});",
+       "pm.test(\"Response code is 200\", function () {",
+       "    pm.response.to.have.status(200);",
+       "});"
+    
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base_url}}/all-contacts?from=0&size=10",
+     "protocol": "{{base_url}}",
+     "path": ["all-contacts"],
+     "query": [
+      { "key": "from", "value": "0" },
+      { "key": "size", "value": "10" }
+     ]
+    }
+   },
+   "response": []
+  },
+  {
+   "name": "Create New Contact",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "exec": [
+       "pm.test(\"Response code is 200\", function () {",
+       "    pm.response.to.have.status(200);",
+       "});",
+       "pm.test(\"Response contains name, email, address and phoneNumber fields\", function () {",
+       "    pm.expect(pm.response.json()).to.have.property('name');",
+       "    pm.expect(pm.response.json()).to.have.property('email');",
+       "    pm.expect(pm.response.json()).to.have.property('address');",
+       "    pm.expect(pm.response.json()).to.have.property('phoneNumber');",
+       "});"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [],
+    "body": {
+     "mode": "raw",
+     "raw": "{\n\t\"name\": \"John Doe\",\n\t\"email\": \"john@gmail.com\",\n\t\"address\": \"123 Main St\",\n\t\"phoneNumber\": 1234567890\n}"
+    },
+    "url": {
+     "raw": "{{base_url}}/new-contact",
+     "protocol": "{{base_url}}",
+     "path": ["new-contact"]
+    }
+   },
+   "response": []
+  },
+  {
+   "name": "Update Contact",
+   "request": {
+    "method": "PATCH",
+    "header": [],
+    "body": {
+     "mode": "raw",
+     "raw": "{\n\t\"name\": \"Jane Doe\",\n\t\"email\": \"jane@gmail.com\",\n\t\"address\": \"456 Elm St\",\n\t\"phoneNumber\": 9876543210\n}"
+    },
+    "url": {
+     "raw": "{{base_url}}/update-contact?id=123",
+     "protocol": "{{base_url}}",
+     "path": ["update-contact"],
+     "query": [
+      { "key": "id", "value": "123" }
+     ]
+    }
+   },
+   "response": []
+  },
+  {
+   "name": "Delete Contact",
+   "request": {
+    "method": "DELETE",
+    "header": [],
+    "body": {},
+    "url": {
+     "raw": "{{base_url}}/contact?id=123",
+     "protocol": "{{base_url}}",
+     "path": ["contact"],
+     "query": [
+      { "key": "id", "value": "123" }
+     ]
+    }
+   },
+   "response": []
+  },
+  {
+   "name": "Get Non-Existent Contact",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "exec": [
+       "pm.test(\"Response code is 404\", function () {",
+       "    pm.response.to.have.status(404);",
+       "});"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base_url}}/contact?id=999",
+     "protocol": "{{base_url}}",
+     "path": ["contact"],
+     "query": [
+      { "key": "id", "value": "999" }
+     ]
+    }
+   },
+   "response": []
+  }
+ ]
+}
