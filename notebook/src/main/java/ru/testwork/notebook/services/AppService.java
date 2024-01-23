@@ -50,6 +50,7 @@ public interface AppService {
      * @param from        начальная страница
      * @param size        размер страницы
      * @return список {@link ContactFullDto}, удовлетворяющих указанным параметрам
+     * @throws ValidationException выбрасывается, если не указаны параметры для поиска
      */
     List<ContactFullDto> findContactByParameters(String name, String email, String address, String phoneNumber, int from, int size);
 

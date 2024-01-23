@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.testwork.notebook.dto.ContactFullDto;
 import ru.testwork.notebook.dto.ContactUpsertDto;
 import ru.testwork.notebook.exceptions.NotFoundException;
+import ru.testwork.notebook.exceptions.ValidationException;
 import ru.testwork.notebook.mappers.ContactMapper;
 import ru.testwork.notebook.models.Contact;
 import ru.testwork.notebook.repositories.ContactsRepository;
@@ -45,6 +46,16 @@ public class AppServiceImpl implements AppService {
         if (dto.getName() != null) contact.setName(dto.getName());
         if (dto.getAddress() != null) contact.setAddress(dto.getAddress());
         return ContactMapper.toContactFullDto(contactsRepository.save(contact));
+    }
+
+    @Override
+    public List<ContactFullDto> findContactByParameters(String name, String email, String address, String phoneNumber, int from, int size) {
+        if (name == null && email == null && address == null && phoneNumber == null) {
+            log.warn("No search parameters were specified");
+            throw new ValidationException("No search parameters were specified");
+        }
+        return contactsRepository.findContactByParameters(name, email, address, phoneNumber)
+                .stream().map(ContactMapper::toContactFullDto).toList();
     }
 
     @Override
