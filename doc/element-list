@@ -1,0 +1,8 @@
+ru.testwork.notebook
+ru.testwork.notebook.controllers
+ru.testwork.notebook.dto
+ru.testwork.notebook.exceptions
+ru.testwork.notebook.mappers
+ru.testwork.notebook.models
+ru.testwork.notebook.repositories
+ru.testwork.notebook.services
